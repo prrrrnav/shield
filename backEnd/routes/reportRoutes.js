@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const reportController = require('../controllers/reportController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const upload = require('../middlewares/uploadMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadMiddleware');
 
 // Create new harassment report (Girl submits)
 router.post('/create', authMiddleware, upload.fields([
