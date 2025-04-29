@@ -3,6 +3,8 @@ import IncidentReport from './IncidentReport';
 import SuspectForm from './SuspectForm';
 import Complaint from './Complaint';
 import AuthForm from './AuthForm';
+import { Routes, Route } from 'react-router-dom';
+
 
 function App() {
   return (
