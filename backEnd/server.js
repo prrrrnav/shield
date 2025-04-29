@@ -1,49 +1,58 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+// const cors = require('cors');
+
+// Import routes
 const userRoutes = require('./routes/userRoutes');
-const reportRoutes = require('./routes/reportRoutes');  // Import the report routes
-const dashboardRoutes = require('./routes/dashboardRoutes');
+const smsRoutes = require('./routes/smsRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+const reportRoutes = require('./routes/reportRoutes');
+
+// Import middleware
 const authMiddleware = require('./middleware/authMiddleware');
 const { connectToMongo } = require('./config/db');
 
-dotenv.config();  // Load environment variables
+// Setup environment variables
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-// ==================
-// Middlewares
-// ==================
-app.use(express.json());  // Parse incoming JSON
-app.use('/uploads', express.static('uploads'));  // Serve uploaded files
-// Public Routes (Register and Login)
-app.use('/api/auth', userRoutes);
+// Middleware for CORS and JSON handling
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
-// Protected Routes (Dashboard, etc.)
-// Protected routes (Dashboard, Reports, etc.)
-app.use('/api', authMiddleware, reportRoutes);  // Use authMiddleware for report routes
-app.use('/api/dashboard', authMiddleware, dashboardRoutes);
+// Routes
+app.use('/api/auth', userRoutes);
+app.use('/api/sms', smsRoutes);
+app.use('/api/upload', uploadRoutes);
+
+// Protected Routes (Require authentication)
+app.use('/api', authMiddleware, reportRoutes);  // Report routes (protected)
 
 // Test protected route
 app.use('/api/users', authMiddleware, (req, res) => {
     res.status(200).json({ message: "✅ Protected route accessed successfully." });
 });
 
-
+// Default route
 app.get('/', (req, res) => {
     res.send('Nammasuraksha API is running 🚀');
 });
 
+// Connect to MongoDB and start server
 async function startServer() {
     try {
-        await connectToMongo();  // Ensure MongoDB connected before listening
+        await connectToMongo();
         app.listen(port, () => {
             console.log(`🚀 Server running at http://localhost:${port}`);
         });
     } catch (error) {
         console.error('❌ Failed to start server:', error);
-        process.exit(1);  // Exit process with failure
+        process.exit(1);
     }
 }
 
