@@ -1,0 +1,19 @@
+.auth-container {
+    width: 320px;
+    margin: 5rem auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+  
+  .auth-container input,
+  .auth-container select,
+  .auth-container button {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
