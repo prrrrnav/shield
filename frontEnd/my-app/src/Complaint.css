@@ -1,0 +1,79 @@
+/* src/Complaint.css */
+
+.complaint-container {
+    padding: 2rem;
+    background: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .complaint-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .complaint-box {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .complaint-box:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .status-badge {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
+  .status-badge.pending {
+    background-color: #f0ad4e;
+    color: white;
+  }
+  
+  .status-badge.approved {
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  .complaint-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .complaint-details div {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .report-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #333;
+  }
+  
+  .report-header .status {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: #eee;
+    color: #333;
+  }
+  
