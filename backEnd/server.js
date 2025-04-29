@@ -21,7 +21,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware for CORS and JSON handling
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
