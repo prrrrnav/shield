@@ -33,7 +33,7 @@ const uploadFile = async (req, res) => {
 
     // Save the file URIs to MongoDB
     const fileDocument = new FileModel({
-      userId: req.user._id,  // Assume user is authenticated
+      userId: req.user.id,  // Assume user is authenticated
       files: fileUris,
     });
 

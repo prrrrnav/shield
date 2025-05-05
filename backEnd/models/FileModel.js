@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const fileSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",  // Assuming you have a User model
+    ref: "User", 
     required: true,
   },
   files: [
     {
-      type: String,  // The URI of the uploaded file
+      type: String, 
       required: true,
     },
   ],
