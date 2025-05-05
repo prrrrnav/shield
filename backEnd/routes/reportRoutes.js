@@ -22,5 +22,5 @@ router.post('/create',
 // Get all reports (Admin viewing)
 router.get('/all', authMiddleware, reportController.getAllReports);
 
-// Export the router
+
 module.exports = router;

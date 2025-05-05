@@ -1,30 +1,27 @@
-const multer = require('multer');
-const path = require('path');
+const multer = require("multer");
 
-// Storage config
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // save to uploads folder
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname)); // rename file
-    }
-});
-
-// File filter (optional, you can restrict file types)
-const fileFilter = (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif|mp4|mp3|wav/;
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    if (extname) {
-        return cb(null, true);
-    }
-    cb(new Error('File type not allowed'));
-};
+// In-memory storage configuration
+const storage = multer.memoryStorage();
 
 const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 },  // 10MB max file size
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|mp4|mp3/;
+    const extname = allowedTypes.test(file.originalname.toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (extname && mimetype) {
+      cb(null, true);
+    } else {
+      cb(new Error("Invalid file type. Only images, videos, and audio are allowed"));
+    }
+  },
 });
 
-module.exports = upload;
+const uploadFiles = upload.fields([
+  { name: "image", maxCount: 1 },
+  { name: "video", maxCount: 1 },
+  { name: "audio", maxCount: 1 },
+]);
+
+module.exports = { uploadFiles };

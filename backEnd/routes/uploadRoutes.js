@@ -1,13 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const { uploadFiles } = require('../controllers/uploadController');
+const express = require("express");
+const { uploadFiles } = require("../middleware/upload.js");
+const { uploadFile } = require("../controllers/uploadController.js");
+const authMiddleware = require('../middleware/authMiddleware');
 
-router.post('/upload', uploadFiles, (req, res) => {
-    if (!req.files) {
-        return res.status(400).send('No files were uploaded.');
-    }
-    console.log(req.files);
-    res.status(200).send('Files uploaded successfully!');
-});
+const router = express.Router();
+
+// POST route to upload files
+router.post("/upload",authMiddleware, uploadFiles, uploadFile);
 
 module.exports = router;
