@@ -6,7 +6,6 @@ const Fir = require('../models/Fir');
 // Get victim dashboard (progress, reports, warnings, FIR status)
 const getDashboard = async (req, res) => {
     try {
-        // Extract the victim userId from the request
         const { victimId } = req.query;
 
         if (!victimId) {

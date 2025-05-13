@@ -6,7 +6,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 // Initialize the router
 const router = express.Router();
 
-// Define routes and attach middleware directly
 
 // Create new harassment report (Girl submits)
 router.post('/create', 

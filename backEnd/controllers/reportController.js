@@ -1,15 +1,24 @@
-const Report = require('../models/Report');  // Import the report model
+const Report = require('../models/Report');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 // Create a new report
 exports.createReport = async (req, res) => {
+    const token = req.headers.authorization?.split(" ")[1];
     try {
-        const { victimId, description } = req.body;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;  // decoded should contain { _id, name, ... }
+        console.log(decoded)
+        const victimId = decoded.id;
+        const { description } = req.body;
         const evidences = {
             images: req.files['evidenceImages'] || [],
             videos: req.files['evidenceVideos'] || [],
             audios: req.files['evidenceAudios'] || []
         };
+        console.log("Uploaded files:", req.files);
+        console.log("Request body:", req.body);
+
 
         if (!victimId || !description || !evidences.images.length && !evidences.videos.length && !evidences.audios.length) {
             return res.status(400).json({ message: 'Victim ID, description, and at least one evidence are required.' });
@@ -40,7 +49,7 @@ exports.createReport = async (req, res) => {
 // Get all reports (for admin to view)
 exports.getAllReports = async (req, res) => {
     try {
-        const reports = await Report.find().populate('victim');  // Populate the 'victim' field to get details of the victim
+        const reports = await Report.find().populate('victim');
 
         if (reports.length === 0) {
             return res.status(404).json({ message: 'No reports found.' });
