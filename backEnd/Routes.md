@@ -65,7 +65,7 @@ Navigate based on role (Victim → Home, Police → Dashboard).
 
 📱 3. Main Dashboard Flow (Role-Based)
 For Victim/Witness:
-Submit Report
+Submit Report 
 POST /api/report
 
 Data: incident type, description, location, timestamp, media file (optional).
@@ -76,7 +76,7 @@ Link it to userId.
 
 For Police:
 Get All Reports
-GET /api/report/all
+GET /api/report/all    --can get all report for a user
 
 Auth middleware: police-only.
 
