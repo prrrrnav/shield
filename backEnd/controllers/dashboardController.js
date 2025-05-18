@@ -2,11 +2,26 @@ const User = require('../models/User');
 const Report = require('../models/Report');
 const Warning = require('../models/Warning');
 const Fir = require('../models/Fir');
+const jwt = require('jsonwebtoken');
+
 
 // Get victim dashboard (progress, reports, warnings, FIR status)
 const getDashboard = async (req, res) => {
     try {
-        const { victimId } = req.query;
+        let victimId;
+        if (req.query.victimId) {
+            victimId = req.query.victimId;
+        }
+        else {
+            const token = req.headers.authorization?.split(" ")[1];
+            if (!token) {
+                return res.status(401).json({ message: 'Authorization token missing' });
+            }
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            victimId = decoded.id;
+            console.log(victimId); // working 
+        }
+
 
         if (!victimId) {
             return res.status(400).json({ message: 'Victim ID is required' });
@@ -50,7 +65,8 @@ const getDashboard = async (req, res) => {
         return res.status(200).json(dashboardData);
     } catch (error) {
         console.error('Error fetching dashboard data:', error);
-        return res.status(500).json({ message: 'Internal server error', error });
+        return res.status(500).json({ message: 'Internal server error', error: error.message });
+
     }
 };
 

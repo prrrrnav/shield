@@ -9,6 +9,7 @@ const userRoutes = require('./routes/userRoutes');
 const smsRoutes = require('./routes/smsRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const evidenceRoutes = require('./routes/evidenceRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes/dashboard');
 
 const authMiddleware = require('./middleware/authMiddleware');
 const { connectToMongo } = require('./config/db');
@@ -44,6 +45,10 @@ app.use('/uploads/evidence', express.static('uploads/evidence'));  // Local stat
 
 // Auth Routes
 app.use('/api/auth', userRoutes);
+
+
+// Dashboard Routes
+app.use('/api/dashboard', dashboardRoutes);  
 
 // SMS Routes
 app.use('/api/sms', smsRoutes);

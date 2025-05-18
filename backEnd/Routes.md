@@ -2,85 +2,56 @@ Routes
 
 
 Confirmed ->
-Authentication -> (completed)
+<!-- Authentication -> (completed)  -- working  -->
 
-Register
-Login
+<!-- Register  -- working -->
+<!-- Login     -  working -->
 
 Not confirmed
-Unauthenticated -> ()
+Unauthenticated -> ()  
 
-dashboard (protected)
+<!-- dashboard (protected)  -- working -->
 Sms (protected)
 Evidence (protected) -> this uploads locally
 upload route (protected ) -> it uploades to r2Bucket
 
 
 
-🌐 1. User Registration (Backend + Frontend)
+<!-- 🌐 1. User Registration (Backend + Frontend)  -- working
 🔁 Route:
-POST /api/auth/register
-
-✅ Backend:
+POST /api/auth/register  -->
+<!-- ✅ Backend:
 Input validation (name, email, phone, password, role: victim/witness/police).
-
 Hash password (bcrypt).
-
 Store user in MongoDB.
+Send confirmation or verification (optional: OTP via email/SMS).  no opted -->
 
-Send confirmation or verification (optional: OTP via email/SMS).
-
-🖥 Frontend:
-Registration form.
-
-Role selector (dropdown).
-
-Success/failure message.
-
-Redirect to login on success.
-
-
-
-🔐 2. User Login + JWT Auth
+<!-- 🔐 2. User Login + JWT Auth
 🔁 Route:
-POST /api/auth/login
+POST /api/auth/login -->
 
-✅ Backend:
+<!-- ✅ Backend:
 Validate credentials.
-
 Compare hashed password.
-
 Generate JWT token (send in response).
-
-Attach role & user ID in payload.
-
-🖥 Frontend:
-Login form with role toggle.
-
-Store JWT in localStorage or SecureStore (for React Native).
-
-Navigate based on role (Victim → Home, Police → Dashboard).
-
+Attach role & user ID in payload. -->
 
 
 📱 3. Main Dashboard Flow (Role-Based)
-For Victim/Witness:
-Submit Report 
-POST /api/report
-
+<!-- For Victim/Witness:
+create Report 
+http://localhost:5000/api/create 
 Data: incident type, description, location, timestamp, media file (optional).
-
 Save report with status = "pending".
-
 Link it to userId.
+-->
 
-For Police:
+<!-- For Police:  -- working
 Get All Reports
-GET /api/report/all    --can get all report for a user
-
+GET /api/report/all    --can get all report for a user using userId 
 Auth middleware: police-only.
+Fetch all pending + active reports. -->
 
-Fetch all pending + active reports.
 
 Update Report Status
 PATCH /api/report/:id/status
